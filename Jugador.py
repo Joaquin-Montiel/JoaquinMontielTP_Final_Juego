@@ -27,6 +27,7 @@ class Jugador(pg.sprite.Sprite):
         self.defensa_cooldown_max = 10  # Máximo tiempo de espera entre disparos
         self.energias_recolectadas = 0
         self.colision_con_trampa = 0
+        self.objetivos_recolectados = 0
 
     def mover_der(self, pixeles):
         self.rect.x += pixeles

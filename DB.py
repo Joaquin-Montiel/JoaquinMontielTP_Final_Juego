@@ -32,4 +32,4 @@ def obtener_puntuaciones():
 
     return puntuaciones
 
-# crear_tabla_puntuaciones()
+crear_tabla_puntuaciones()

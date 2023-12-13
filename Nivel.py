@@ -12,7 +12,6 @@ from Vida import Vida
 class Nivel:
     def __init__(self, pantalla, ancho_pantalla, alto_pantalla, nombre_del_nivel):
         self.configuracion = abrir_json().get(nombre_del_nivel)
-        self.configuracion_tiempo = self.configuracion.get("tiempo_de_juego")
         if self.configuracion:
             self.configuracion_nivel = self.configuracion.get("nivel", {})
         else:
@@ -31,28 +30,22 @@ class Nivel:
         self.jugador.vidas = self.configuracion_nivel.get("cantidad_vidas")
         
         #Configuro los enemigos
-        self.configuracion_enemigo = self.configuracion.get("enemigo")
-        self.enemigo = self.configuracion_enemigo
+        self.enemigo = self.configuracion.get("enemigo")
 
         #Configuro los objetivos
-        self.configuracion_objetivo = self.configuracion.get("objetivos")
-        self.objetivos = self.configuracion_objetivo
+        self.objetivos = self.configuracion.get("objetivos")
 
         #Configuro la energia
-        self.configuracion_energia = self.configuracion.get("energia")
-        self.energia = self.configuracion_energia
+        self.energia = self.configuracion.get("energia")
 
         #configuro la trampa 
-        self.configuracion_trampa = self.configuracion.get("trampa")
-        self.trampas = self.configuracion_trampa
+        self.trampas = self.configuracion.get("trampa")
 
         #Configuro la vida
-        self.configuracion_vida = self.configuracion.get("vidas")
-        self.vidas = self.configuracion_vida
+        self.configuracion_vidas = self.configuracion.get("vidas")
 
         #Configuro las plataformas
-        self.configuracion_plataformas = self.configuracion.get("plataformas")
-        self.plataformas = self.configuracion_plataformas
+        self.plataformas = self.configuracion.get("plataformas")
 
         #Iniciar los grupos de sprites
         self.grupo_sprites = pg.sprite.Group()
@@ -73,7 +66,6 @@ class Nivel:
         imagen = self.plataformas["imagen"]
         ancho = self.plataformas["ancho"]
         alto = self.plataformas["alto"]
-
         for nombre, datos in self.plataformas.items():
             if nombre.startswith("plataforma"):
                 x = datos["x"]
@@ -82,14 +74,13 @@ class Nivel:
                 self.grupo_plataformas.add(plataforma)
         self.grupo_sprites.add(self.grupo_plataformas)
 
-
     def mostrar_plataformas(self):
         for plataforma in self.grupo_plataformas:
             plataforma.draw(self.pantalla_principal)
 
     def crear_enemigos(self):
         cantidad_enemigos = self.configuracion_nivel.get("cantidad_enemigos")
-        for _ in range(1, cantidad_enemigos + 1):
+        for _ in range(1, cantidad_enemigos):
             valor_x = self.enemigo.get("x")
             vaolr_y = self.enemigo.get("y")
             x = random.randint(valor_x["valor_x_1"], valor_x["valor_x_2"])
@@ -163,7 +154,6 @@ class Nivel:
                 vida = Vida(x, y)
                 self.grupo_vidas.add(vida) 
 
-
     def mostrar_vidas(self):
         for vida in self.grupo_vidas:
             vida.draw(self.pantalla_principal)
@@ -172,9 +162,12 @@ class Nivel:
         #Configuro el nivel con los datos del json
         self.imagen_nivel = self.configuracion_nivel.get("fondo_pantalla")
         self.imagen_fondo = pg.transform.scale(pg.image.load(self.imagen_nivel), (ANCHO, ALTO))
+        
+    def iniciar_musica(self):
         self.musica_fondo = pg.mixer.music.load(self.configuracion_nivel.get("musica_fondo"))
+        pg.mixer.music.set_volume(0.10)
+        pg.mixer.music.play(-1)
 
-    
     def update(self):
         self.mostrar_enemigos()
         self.mostrar_plataformas()
@@ -188,7 +181,6 @@ class Nivel:
         self.grupo_sprites.draw(self.pantalla)
 
     def inicializar_nivel(self):
-        
         self.cargar_recursos()
 
         #Cargo plataformas
@@ -214,6 +206,8 @@ class Nivel:
         #Cargar Vidas
         self.crear_vidas()
         self.mostrar_vidas()
+
+        self.iniciar_musica()
 
 
 

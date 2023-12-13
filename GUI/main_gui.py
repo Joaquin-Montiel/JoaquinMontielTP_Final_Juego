@@ -11,6 +11,7 @@ path_db = r'C:\Users\joaqu\OneDrive\Desktop\Joaquin Montiel-TP Juego\DB.py'
 sys.path.append(path_db)
 from DB import obtener_puntuaciones
 
+
 pg.init()
 
 ANCHO = 800
