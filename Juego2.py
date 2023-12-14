@@ -45,7 +45,7 @@ class Juego(pg.sprite.Sprite):
         self.nivel_actual = 1
 
         self.tiempo_inicial = pg.time.get_ticks() // 1000 #Tiempo en segundos
-        self.duracion_juego = 30 # duración del juego en segundos
+        self.duracion_juego = 30 # duración del juego 
 
         # #Bucle principal
         while self.en_ejecucion:
@@ -99,6 +99,7 @@ class Juego(pg.sprite.Sprite):
                     self.puntaje.matar_enemigo(enemigo.puntaje)
                     disparo.kill()
                     print("Enemigo eliminado.")
+
                 colision_trampas = pg.sprite.spritecollide(disparo, self.nivel.grupo_trampas, True)
                 for trampa in colision_trampas:
                     self.puntaje.destruir_trampa(trampa.puntaje)
@@ -127,20 +128,16 @@ class Juego(pg.sprite.Sprite):
                 self.puntaje.recolectar_objetivo(objetivo.puntaje)
                 self.nivel.jugador.objetivos_recolectados += 1
                 print("Objetivo recolectado")
-                if self.nivel.jugador.objetivos_recolectados == self.nivel.configuracion_nivel.get("cantidad_objetivos"):
-                    print(self.nivel_actual)
-                    self.cambiar_nivel()
-                    print(self.nivel_actual)
+
 
             #Verifico si se recolectaron todos los objetivos para cambiar de nivel
-            # if self.nivel_actual == 1 and self.nivel.jugador.objetivos_recolectados == 2:
-            #     self.cambiar_nivel()
-            # elif self.nivel_actual == 2 and self.nivel.jugador.objetivos_recolectados == 3:
-            #     self.cambiar_nivel()
-            # elif self.nivel_actual == 3 and self.nivel.jugador.objetivos_recolectados == 4:
-            #     self.victoria()
-
-
+            if self.nivel_actual == 1 and not self.nivel.grupo_objetivos:
+                self.cambiar_nivel()
+            elif self.nivel_actual == 2 and not self.nivel.grupo_objetivos:
+                self.cambiar_nivel()
+            elif self.nivel_actual == 3 and not self.nivel.grupo_objetivos:
+                insertar_campos(self.nivel.jugador.nombre, self.puntaje.obtener_puntaje())
+                self.victoria()
 
             colision_energia = pg.sprite.spritecollide(self.nivel.jugador, self.nivel.grupo_energias, True)
             for energia in colision_energia:
@@ -270,7 +267,7 @@ class Juego(pg.sprite.Sprite):
 
         #Reinicio el tiempo para el nuevo nivel si es necesario
         self.tiempo_inicial = pg.time.get_ticks() // 1000
-        self.duracion_juego = 60
+        self.duracion_juego = 30
 
         #Reinicio el juego con el nuevo nivel
         self.nivel = Nivel(self.pantalla, ANCHO, ALTO, nombre_nuevo_nivel)

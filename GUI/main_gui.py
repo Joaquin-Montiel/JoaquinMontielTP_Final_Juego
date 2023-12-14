@@ -158,6 +158,7 @@ def play():
                     if event.key == pg.K_RETURN:
                         entrada_activa = False
                         jugador_nombre = nombre_jugador
+                        print(jugador_nombre)
                         nivel_seleccionado = entrar_al_nivel(jugador_nombre)
                         if nivel_seleccionado is not None:
                             print(f"Jugador:{jugador_nombre}, Nivel seleccionado: {nivel_seleccionado}")
@@ -175,6 +176,7 @@ def play():
             if input_box.is_enter_pressed(event):
                 entrada_activa = False
                 jugador_nombre = input_box.text
+                print(jugador_nombre)
                 nivel_seleccionado = entrar_al_nivel(jugador_nombre)
                 if nivel_seleccionado is not None:
                     #Inicio el juego aquí

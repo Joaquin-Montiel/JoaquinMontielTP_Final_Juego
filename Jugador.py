@@ -29,6 +29,7 @@ class Jugador(pg.sprite.Sprite):
         self.energias_recolectadas = 0
         self.colision_con_trampa = 0
         self.objetivos_recolectados = 0
+        self.colision_enemigos = 0
 
     def mover_der(self, pixeles):
         self.rect.x += pixeles
