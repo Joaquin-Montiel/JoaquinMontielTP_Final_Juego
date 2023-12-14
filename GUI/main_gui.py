@@ -3,13 +3,15 @@ from Button import Button
 from InputBox import InputBox
 from Slider import Slider
 
+
 path_juego = r'C:\Users\joaqu\OneDrive\Desktop\Joaquin Montiel-TP Juego'
 sys.path.append(path_juego)
 from Juego2 import Juego
 
-path_db = r'C:\Users\joaqu\OneDrive\Desktop\Joaquin Montiel-TP Juego\DB.py'
-sys.path.append(path_db)
-from DB import obtener_puntuaciones
+# path_db = r'C:\Users\joaqu\OneDrive\Desktop\Joaquin Montiel-TP Juego\DB.py'
+# sys.path.append(path_db)
+# from DB import obtener_puntuaciones
+
 
 
 pg.init()
@@ -40,18 +42,18 @@ def iniciar_juego(jugador_nombre, nivel_seleccionado):
     # Ejecutar el juego
     juego.ejecutar_juego()
     # Puedes agregar más lógica aquí después de que el juego haya terminado, si es necesario
-    print(f"Juego terminado para {jugador_nombre} en el nivel {nivel_seleccionado}")
+    print(f"Juego terminado para {jugador_nombre} en el {nivel_seleccionado}")
 
 def entrar_al_nivel(jugador_nombre):
     nivel_seleccionado = None
     title_font = get_font(60)
     level_font = get_font(30)
     level_buttons = [
-        Button(image=None, pos=(400, 300), text_input="Nivel 1", font=level_font, base_color="Black",
+        Button(image=None, pos=(400, 300), text_input="nivel_1", font=level_font, base_color="Black",
                 color="White"),
-        Button(image=None, pos=(400, 345), text_input="Nivel 2", font=level_font, base_color="Black",
+        Button(image=None, pos=(400, 345), text_input="nivel_2", font=level_font, base_color="Black",
                 color="White"),
-        Button(image=None, pos=(400, 390), text_input="Nivel 3", font=level_font, base_color="Black",
+        Button(image=None, pos=(400, 390), text_input="nivel_3", font=level_font, base_color="Black",
                 color="White")
     ]
 
@@ -100,15 +102,19 @@ def mostrar_tabla_posiciones():
         pantalla.blit(fondo_tabla, (x_pos, y_pos))
 
         # Obtener las puntuaciones desde la base de datos
-        puntuaciones = obtener_puntuaciones()
+        # puntuaciones = obtener_puntuaciones()
 
         # Mostrar las puntuaciones
-        y_pos_puntuaciones = y_pos + 100
-        for i, (nombre, puntuacion) in enumerate(puntuaciones, start=1):
-            fila_texto = get_font(30).render(f"{i}. {nombre}: {puntuacion}", True, "Black")
-            fila_rect = fila_texto.get_rect(center=(x_pos + tabla_resolucion[0] // 2, y_pos_puntuaciones))
-            pantalla.blit(fila_texto, fila_rect)
-            y_pos_puntuaciones += 50
+        # y_pos_puntuaciones = y_pos + 100
+        # for i, (nombre, puntuacion) in enumerate(puntuaciones, start=1):
+        #     fila_texto = get_font(30).render(f"{i}. {nombre}: {puntuacion}", True, "Black")
+        #     fila_rect = fila_texto.get_rect(center=(x_pos + tabla_resolucion[0] // 2, y_pos_puntuaciones))
+        #     pantalla.blit(fila_texto, fila_rect)
+        #     y_pos_puntuaciones += 50
+
+        TEXTO_TABLA = get_font(60).render("Puntaje", True, "Black")
+        TABLA_RECT = TEXTO_TABLA.get_rect(center=(400, 90))
+        pantalla.blit(TEXTO_TABLA, TABLA_RECT)
 
         QUIT_BUTTON = Button(image=None, pos=(660, 80), text_input="X", font=get_font(45),
                                 base_color="Blue", color="Black")
@@ -126,7 +132,6 @@ def mostrar_tabla_posiciones():
                     ranking()
 
         pg.display.update()
-
 
 def play():
     pg.display.set_caption("Play")
@@ -163,7 +168,7 @@ def play():
                         jugador_nombre = nombre_jugador
                         nivel_seleccionado = entrar_al_nivel(jugador_nombre)
                         if nivel_seleccionado is not None:
-                            print(f"Jugador: {jugador_nombre}, Nivel seleccionado: {nivel_seleccionado}")
+                            print(f"Jugador:{jugador_nombre}, Nivel seleccionado: {nivel_seleccionado}")
                             # Inicia el juego aquí
                             iniciar_juego(jugador_nombre, nivel_seleccionado)
                             return  # Salgo del bucle 
@@ -177,10 +182,10 @@ def play():
             # Verifico si se ha presionado "Enter"
             if input_box.is_enter_pressed(event):
                 entrada_activa = False
+                #self.juego.nivel.jugador.nombre  = input_box.text
                 jugador_nombre = input_box.text
                 nivel_seleccionado = entrar_al_nivel(jugador_nombre)
                 if nivel_seleccionado is not None:
-                    print(f"Jugador: {jugador_nombre}, Nivel seleccionado: {nivel_seleccionado}")
                     # Inicia el juego aquí
                     iniciar_juego(jugador_nombre, nivel_seleccionado)
                     return
@@ -203,6 +208,7 @@ def play():
 
 def options():
     pg.display.set_caption("Options")
+    pausa_musica = False
 
     while True:
         # Obtener todos los eventos una vez
@@ -221,17 +227,28 @@ def options():
 
         OPTIONS_BACK = Button(image=None, pos=(700, 500), text_input="<- Atras", font=get_font(45), base_color="Black",
                             color="Blue")
+        
+        OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
+        OPTIONS_BACK.update(pantalla)
 
         # Ajusta las coordenadas x e y según tus necesidades
         VOLUMEN = Slider(pantalla, master_x=330, master_y=300, x=330, y=360, w=150, h=5,
                         value=0.5, color_background="Black", color_circulo="Blue")
-
-        OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
-        OPTIONS_BACK.update(pantalla)
-
+        
         # Usar los eventos para ambas partes del código
         VOLUMEN.update(eventos)
         VOLUMEN.draw()
+
+        VOLUMEN_PAUSA = Button(image=None, pos=(400, 400), text_input="Pausar", font=get_font(30), base_color="Black", 
+                                color="Blue")
+        VOLUMEN_RENAUDADO = Button(image=None, pos=(400, 500), text_input="Renaudar", font=get_font(30),base_color="Black",
+                                    color="Blue")
+
+        VOLUMEN_PAUSA.changeColor(OPTIONS_MOUSE_POS)
+        VOLUMEN_RENAUDADO.changeColor(OPTIONS_MOUSE_POS)
+
+        VOLUMEN_PAUSA.update(pantalla)
+        VOLUMEN_RENAUDADO.update(pantalla)
 
         for event in eventos:
             if event.type == pg.QUIT:
@@ -240,6 +257,14 @@ def options():
             if event.type == pg.MOUSEBUTTONDOWN:
                 if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
                     main_menu()
+
+                if VOLUMEN_PAUSA.checkForInput(OPTIONS_MOUSE_POS):
+                    pg.mixer.music.pause()
+                    VOLUMEN_PAUSA.checkForInput("Reanudar Música")
+                elif VOLUMEN_RENAUDADO.checkForInput(OPTIONS_MOUSE_POS):
+                    pg.mixer.music.unpause()
+                    VOLUMEN_RENAUDADO.checkForInput("Pausar Música")
+
         pg.display.update()
 
 def ranking():

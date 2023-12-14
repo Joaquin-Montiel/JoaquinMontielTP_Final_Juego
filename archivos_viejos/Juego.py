@@ -190,7 +190,7 @@ class Juego(pg.sprite.Sprite):
                     disparo.kill()
                     print("Trampa destruida.")
 
-            for trampa in self.grupo_trampas:
+            for self.trampa in self.grupo_trampas:
                 if trampa.rect.top >= ALTO:
                     trampa.kill()
                 elif pg.sprite.collide_rect(self.jugador, trampa):

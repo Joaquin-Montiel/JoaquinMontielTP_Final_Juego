@@ -6,6 +6,7 @@ from Vida import Vida
 class Jugador(pg.sprite.Sprite):
     def __init__(self, coordenadas, path_imagen, path_imagen_2, dinosaurio_camina_der, dinosaurio_camina_izq) -> None:
         super().__init__()
+        self.nombre = None
         self.vidas = 3
         self.energia = 100
         self.dinosaurio_der = pg.image.load(path_imagen).convert_alpha()

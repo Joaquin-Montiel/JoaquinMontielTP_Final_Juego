@@ -73,7 +73,7 @@
             "cantidad_enemigos": 6,
             "cantidad_trampas": 5,
             "cantidad_objetivos": 3,
-            "cantidad_energia": 6,
+            "cantidad_energia": 5,
             "plataforma_1": "./sprites_juego/Plataformas/plataforma1.png",
             "plataforma_2": "./sprites_juego/Plataformas/plataforma2.png",
             "tiempo": 100
@@ -119,8 +119,7 @@
             "energia_2":{"x":150, "y":515},
             "energia_3":{"x":410, "y":415},
             "energia_4":{"x":580, "y":330},
-            "energia_5":{"x":390, "y":450},
-            "energia_6":{"x":200, "y":550}
+            "energia_5":{"x":390, "y":450}
         },
         "trampa":{
             "imagen": "./sprites_juego/Enemigo/meteorito.png",
@@ -141,8 +140,8 @@
             "cantidad_vidas": 3,
             "cantidad_enemigos": 9,
             "cantidad_trampas": 7,
-            "cantidad_objetivos": 4,
-            "cantidad_energia": 9,
+            "cantidad_objetivos": 3,
+            "cantidad_energia": 7,
             "plataforma_1": "./sprites_juego/Plataformas/plataforma1.png",
             "plataforma_2": "./sprites_juego/Plataformas/plataforma2.png",
             "tiempo": 100
@@ -178,8 +177,7 @@
             "alto": 40,
             "objetivo_1":{"x":530, "y":330},
             "objetivo_2":{"x":240, "y":340},
-            "objetivo_3":{"x":400, "y":558},
-            "objetivo_5":{"x":550, "y":450}
+            "objetivo_3":{"x":400, "y":558}
         },
         "energia":{
             "imagen": "./sprites_juego/Energia/hueso_de_carne.png",
@@ -191,9 +189,7 @@
             "energia_4":{"x":580, "y":330},
             "energia_5":{"x":390, "y":450},
             "energia_6":{"x":200, "y":550},
-            "energia_7":{"x":150, "y":425},
-            "energia_8":{"x":190, "y":425},
-            "energia_9":{"x":600, "y":400}
+            "energia_7":{"x":150, "y":425}
         },
     "trampa":{
         "imagen": "./sprites_juego/Enemigo/meteorito.png",

@@ -18,8 +18,6 @@ class Nivel:
             # Puedes manejar la falta de configuración según tus necesidades
             print(f"No hay configuración para el nivel {nombre_del_nivel}")
             self.configuracion_nivel = {}
-        # #Configuro el nivel
-        # self.configuracion_nivel = self.configuracion.get("nivel")
         #Configuro el jugador
         self.configuracion_jugador = self.configuracion.get("jugador", {})
         self.jugador = Jugador((0, alto_pantalla), 
@@ -139,6 +137,7 @@ class Nivel:
                 trampa = Asteroide(imagen, (x, y), VELOCIDAD_ASTEROIDE)
                 self.grupo_trampas.add(trampa)
         self.grupo_sprites.add(self.grupo_trampas)
+        
 
     def mostrar_trampas(self):
         for trampa in self.grupo_trampas:
@@ -170,14 +169,18 @@ class Nivel:
 
     def update(self):
         self.mostrar_enemigos()
+        self.grupo_enemigos.update()
         self.mostrar_plataformas()
+        self.grupo_plataformas.update()
         self.mostrar_objetivos()
+        self.grupo_objetivos.update()
         self.mostrar_energias()
-        self.crear_vidas()
+        self.grupo_energias.update()
         self.crear_trampas()
-        self.mostrar_vidas()
-        self.grupo_trampas.update()
         self.mostrar_trampas()
+        self.grupo_trampas.update()
+        self.crear_vidas()
+        self.mostrar_vidas()
         self.grupo_sprites.draw(self.pantalla)
 
     def inicializar_nivel(self):
