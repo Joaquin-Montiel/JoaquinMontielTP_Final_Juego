@@ -83,11 +83,11 @@ def entrar_al_nivel(jugador_nombre):
 
 def mostrar_tabla_posiciones():
     pantalla_resolucion = (800, 600)
-    tabla_resolucion = (600, 500)
+    resolucion_tabla = (600, 500)
 
     # Calcular posición de la tabla centrada
-    x_pos = (pantalla_resolucion[0] - tabla_resolucion[0]) // 2
-    y_pos = (pantalla_resolucion[1] - tabla_resolucion[1]) // 2
+    x_pos = (pantalla_resolucion[0] - resolucion_tabla[0]) // 2
+    y_pos = (pantalla_resolucion[1] - resolucion_tabla[1]) // 2
 
     while True:
         fondo_tabla = pg.transform.scale(pg.image.load(r"./sprites_juego/Fondo/tabla_posiciones.png"), (600, 500))  
@@ -100,7 +100,7 @@ def mostrar_tabla_posiciones():
         y_pos_puntuaciones = y_pos + 100
         for i, (nombre, puntaje) in enumerate(puntuaciones, start=1):
             fila_texto = get_font(30).render(f"{i}. {nombre}: {puntaje}", True, "Black")
-            fila_rect = fila_texto.get_rect(center=(x_pos + tabla_resolucion[0] // 2, y_pos_puntuaciones))
+            fila_rect = fila_texto.get_rect(center=(x_pos + resolucion_tabla[0] // 2, y_pos_puntuaciones))
             pantalla.blit(fila_texto, fila_rect)
             y_pos_puntuaciones += 50
 
