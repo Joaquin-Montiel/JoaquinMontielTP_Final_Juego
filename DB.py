@@ -1,5 +1,5 @@
-
 import sqlite3
+
 
 def crear_tabla():
     """Crea la base de datos y la tabla.
@@ -31,7 +31,6 @@ def insertar_campos(nombre_jugador:str, puntaje:int):
         except Exception as e:
             print("Error al insertar el campo.")
 
-
 def chequear_existencias(value:str):
     """Verifica si existe una posicion en la base de datos.
 
@@ -46,29 +45,23 @@ def chequear_existencias(value:str):
 
 def get_lista():
     with sqlite3.connect("Ranking_Dino.db") as conexion:
-        sentencia = "SELECT * FROM ranking ORDER BY puntaje DESC LIMIT 3"
+        sentencia = "SELECT * FROM ranking ORDER BY puntaje DESC LIMIT 5"
         cursor = conexion.execute(sentencia)
         filas=cursor.fetchall()
         return filas
 
-
-
-
-
-
 def obtener_puntuaciones():
-    # Conectar a la base de datos
+    #Conecto a la base de datos
     conexion = sqlite3.connect('Ranking')
     cursor = conexion.cursor()
 
-    # Obtener las puntuaciones ordenadas por puntaje descendente
+    #Obtengo las puntuaciones ordenadas por puntaje descendente
     cursor.execute("SELECT nombre, puntuacion FROM tabla_puntuaciones ORDER BY puntuacion DESC")
     puntuaciones = cursor.fetchall()
 
-    # Cerrar la conexión a la base de datos
+    #Cierro la conexión a la base de datos
     conexion.close()
 
     return puntuaciones
 
-# crear_tabla_puntuaciones()
 

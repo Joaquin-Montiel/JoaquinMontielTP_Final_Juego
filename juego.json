@@ -191,16 +191,16 @@
             "energia_6":{"x":200, "y":550},
             "energia_7":{"x":150, "y":425}
         },
-    "trampa":{
-        "imagen": "./sprites_juego/Enemigo/meteorito.png",
-        "x":{"valor_x_1":40, "valor_x_2":760},
-        "y":{"valor_y_1":40, "valor_y_2":300}
+        "trampa":{
+            "imagen": "./sprites_juego/Enemigo/meteorito.png",
+            "x":{"valor_x_1":40, "valor_x_2":760},
+            "y":{"valor_y_1":40, "valor_y_2":300}
         },
-    "vidas":{
-        "imagen": "sprites_juego/vida/vida.png",
-        "x": {"valor_x_1":800, "valor_x_2":390},
-        "y": 25,
-        "cantidad_vida": 1
+        "vidas":{
+            "imagen": "sprites_juego/vida/vida.png",
+            "x": {"valor_x_1":800, "valor_x_2":390},
+            "y": 25,
+            "cantidad_vida": 1
         }
     }
 }

@@ -1,21 +1,15 @@
-import pygame as pg, sys, os
+import pygame as pg, sys
 from Button import Button
 from InputBox import InputBox
 from Slider import Slider
-
-
 path_juego = r'C:\Users\joaqu\OneDrive\Desktop\Joaquin Montiel-TP Juego'
 sys.path.append(path_juego)
 from Juego2 import Juego
-
 path_db = r'C:\Users\joaqu\OneDrive\Desktop\Joaquin Montiel-TP Juego\DB.py'
 sys.path.append(path_db)
 from DB import get_lista
 
-
-
 pg.init()
-
 ANCHO = 800
 ALTO = 600
 
@@ -41,8 +35,6 @@ def iniciar_juego(jugador_nombre, nivel_seleccionado):
     juego = Juego(jugador_nombre, nivel_seleccionado)
     # Ejecutar el juego
     juego.ejecutar_juego()
-    # Puedes agregar más lógica aquí después de que el juego haya terminado, si es necesario
-    print(f"Juego terminado para {jugador_nombre} en el {nivel_seleccionado}")
 
 def entrar_al_nivel(jugador_nombre):
     nivel_seleccionado = None
@@ -104,14 +96,13 @@ def mostrar_tabla_posiciones():
         #Obtengo las puntuaciones desde la base de datos
         puntuaciones = get_lista()
 
-        # Mostrar las puntuaciones
+        #Muestro las puntuaciones
         y_pos_puntuaciones = y_pos + 100
         for i, (nombre, puntaje) in enumerate(puntuaciones, start=1):
             fila_texto = get_font(30).render(f"{i}. {nombre}: {puntaje}", True, "Black")
             fila_rect = fila_texto.get_rect(center=(x_pos + tabla_resolucion[0] // 2, y_pos_puntuaciones))
             pantalla.blit(fila_texto, fila_rect)
             y_pos_puntuaciones += 50
-
 
         TEXTO_TABLA = get_font(60).render("Puntaje", True, "Black")
         TABLA_RECT = TEXTO_TABLA.get_rect(center=(400, 90))
@@ -183,11 +174,10 @@ def play():
             # Verifico si se ha presionado "Enter"
             if input_box.is_enter_pressed(event):
                 entrada_activa = False
-                #self.juego.nivel.jugador.nombre  = input_box.text
                 jugador_nombre = input_box.text
                 nivel_seleccionado = entrar_al_nivel(jugador_nombre)
                 if nivel_seleccionado is not None:
-                    # Inicia el juego aquí
+                    #Inicio el juego aquí
                     iniciar_juego(jugador_nombre, nivel_seleccionado)
                     return
                 
@@ -240,7 +230,7 @@ def options():
         VOLUMEN.update(eventos)
         VOLUMEN.draw()
 
-        VOLUMEN_PAUSA = Button(image=None, pos=(400, 400), text_input="Pausar", font=get_font(30), base_color="Black", 
+        VOLUMEN_PAUSA = Button(image=None, pos=(400, 440), text_input="Pausar", font=get_font(30), base_color="Black", 
                                 color="Blue")
         VOLUMEN_RENAUDADO = Button(image=None, pos=(400, 500), text_input="Renaudar", font=get_font(30),base_color="Black",
                                     color="Blue")

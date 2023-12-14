@@ -14,15 +14,14 @@ class Enemigo(pg.sprite.Sprite):
         self.puntaje = 200
 
     def update(self):
-        # Mover en la dirección actual
         self.rect.x += self.velocidad_x * self.direccion
     
         # Verificar límites de pantalla
         if self.rect.right > ANCHO - 225:
-            self.direccion = -1  # Cambiar a la izquierda cuando alcanza el límite derecho
+            self.direccion = -1  # Cambio a la izquierda cuando alcanza el límite derecho
             self.image = self.enemigo_izq
         elif self.rect.left < 200:
-            self.direccion = 1  # Cambiar a la derecha cuando alcanza el límite izquierdo
+            self.direccion = 1  #Cambio a la derecha cuando alcanza el límite izquierdo
             self.image = self.enemigo_der
 
     def debugger_enemigo(self, pantalla):

@@ -9,10 +9,6 @@ class Plataforma(pg.sprite.Sprite):
         self.image = pg.transform.scale(self.image, (ancho, alto))
         self.rect = self.image.get_rect(topleft=(x, y))
         #self.rect = pg.Rect(x, y, ancho, alto)
-        
-
-    # def ger_rect(self):
-    #     return self.rect
     
     def draw(self, pantalla):
         pantalla.blit(self.image, self.rect)

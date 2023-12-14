@@ -14,8 +14,6 @@ class Juego(pg.sprite.Sprite):
         pg.mixer.init()
 
         #Configuracion de la pantalla
-        self.jugador_nombre = nombre_jugador
-        self.nivel_seleccionado = nivel_seleccionado
         self.pantalla = pg.display.set_mode((ANCHO, ALTO))
         pg.display.set_caption("A jugar con Dino")
 
@@ -28,6 +26,8 @@ class Juego(pg.sprite.Sprite):
         # Crear las instancias
         self.nivel = Nivel(self.pantalla, ANCHO, ALTO, "nivel_1")
         self.puntaje = Puntaje()
+        self.nivel.jugador.nombre = nombre_jugador
+        self.nivel_seleccionado = nivel_seleccionado
         self.nivel.jugador.objetivos_recolectados = 0
         #Creo la tabla de puntuacione
         crear_tabla()
@@ -116,6 +116,9 @@ class Juego(pg.sprite.Sprite):
                     self.nivel.crear_vidas()
                     print("Vida menos")
                     print("Colision con trampa.")
+                if trampa.rect.top >= ALTO:
+                    trampa.kill()
+
 
             colision_objetivos = pg.sprite.spritecollide(self.nivel.jugador, self.nivel.grupo_objetivos, True)
             for objetivo in colision_objetivos:
@@ -124,6 +127,10 @@ class Juego(pg.sprite.Sprite):
                 self.puntaje.recolectar_objetivo(objetivo.puntaje)
                 self.nivel.jugador.objetivos_recolectados += 1
                 print("Objetivo recolectado")
+                if self.nivel.jugador.objetivos_recolectados == self.nivel.configuracion_nivel.get("cantidad_objetivos"):
+                    print(self.nivel_actual)
+                    self.cambiar_nivel()
+                    print(self.nivel_actual)
 
             #Verifico si se recolectaron todos los objetivos para cambiar de nivel
             # if self.nivel_actual == 1 and self.nivel.jugador.objetivos_recolectados == 2:
@@ -133,8 +140,6 @@ class Juego(pg.sprite.Sprite):
             # elif self.nivel_actual == 3 and self.nivel.jugador.objetivos_recolectados == 4:
             #     self.victoria()
 
-            if self.nivel.jugador.objetivos_recolectados == self.nivel.configuracion_nivel.get("cantidad_objetivos"):
-                self.cambiar_nivel()
 
 
             colision_energia = pg.sprite.spritecollide(self.nivel.jugador, self.nivel.grupo_energias, True)
@@ -417,8 +422,7 @@ class Juego(pg.sprite.Sprite):
 #                     self.nivel.crear_vidas()
 #                     print("Vida menos")
 #                     print("Colision con trampa.")
-#                 if trampa.rect.top >= ALTO:
-#                     trampa.kill()
+#                 
 
 #             colision_objetivos = pg.sprite.spritecollide(self.nivel.jugador, self.nivel.grupo_objetivos, True)
 #             for objetivo in colision_objetivos:

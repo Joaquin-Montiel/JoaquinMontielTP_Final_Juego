@@ -9,8 +9,8 @@ class Jugador(pg.sprite.Sprite):
         self.nombre = None
         self.vidas = 3
         self.energia = 100
-        self.dinosaurio_der = pg.image.load(path_imagen).convert_alpha()
-        self.dinosaurio_izq = pg.image.load(path_imagen_2).convert_alpha()
+        self.dinosaurio_der = pg.image.load(path_imagen)
+        self.dinosaurio_izq = pg.image.load(path_imagen_2)
         self.dinosaurio_camina_der = dinosaurio_camina_der
         self.dinosaurio_camina_izq = dinosaurio_camina_izq
         self.image = self.dinosaurio_der
@@ -24,8 +24,8 @@ class Jugador(pg.sprite.Sprite):
         self.velocidad_x = 0
         self.velocidad_y = 0
         self.direccion = "derecha"
-        self.defensa_cooldown = 0  # Tiempo de espera entre disparos
-        self.defensa_cooldown_max = 10  # Máximo tiempo de espera entre disparos
+        self.defensa_cooldown = 0  #Tiempo de espera entre disparos
+        self.defensa_cooldown_max = 10  #Tiempo maximo de espera entre disparos
         self.energias_recolectadas = 0
         self.colision_con_trampa = 0
         self.objetivos_recolectados = 0
@@ -53,7 +53,7 @@ class Jugador(pg.sprite.Sprite):
             self.rect.y += self.velocidad_y * 3
             self.velocidad_y += self.gravedad
 
-            # Controlo el límite inferior (suelo)
+            # Controlo el límite inferior
             if self.rect.y >= self.piso:
                 self.rect.y = self.piso
                 self.en_el_aire = False

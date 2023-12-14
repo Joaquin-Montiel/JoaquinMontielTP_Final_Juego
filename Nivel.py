@@ -9,19 +9,19 @@ from Trampa import Asteroide
 from Vida import Vida
 
 
-class Nivel:
+class Nivel(pg.sprite.Sprite):
     def __init__(self, pantalla, ancho_pantalla, alto_pantalla, nombre_del_nivel):
+        super().__init__()
         self.configuracion = abrir_json().get(nombre_del_nivel)
         if self.configuracion:
             self.configuracion_nivel = self.configuracion.get("nivel", {})
         else:
-            # Puedes manejar la falta de configuración según tus necesidades
             print(f"No hay configuración para el nivel {nombre_del_nivel}")
             self.configuracion_nivel = {}
+            # self.configuracion_jugador = {}
         #Configuro el jugador
-        self.configuracion_jugador = self.configuracion.get("jugador", {})
-        self.jugador = Jugador((0, alto_pantalla), 
-                                    self.configuracion_jugador.get("jugador_parado_der"),
+        self.configuracion_jugador = self.configuracion.get("jugador")
+        self.jugador = Jugador((0, alto_pantalla), self.configuracion_jugador.get("jugador_parado_der"),
                                     self.configuracion_jugador.get("jugador_parado_izq"),
                                     dinosaurio_camina_der,
                                     dinosaurio_camina_izq)
@@ -29,19 +29,14 @@ class Nivel:
         
         #Configuro los enemigos
         self.enemigo = self.configuracion.get("enemigo")
-
         #Configuro los objetivos
         self.objetivos = self.configuracion.get("objetivos")
-
         #Configuro la energia
         self.energia = self.configuracion.get("energia")
-
         #configuro la trampa 
         self.trampas = self.configuracion.get("trampa")
-
         #Configuro la vida
         self.configuracion_vidas = self.configuracion.get("vidas")
-
         #Configuro las plataformas
         self.plataformas = self.configuracion.get("plataformas")
 
@@ -142,6 +137,12 @@ class Nivel:
         for trampa in self.grupo_trampas:
             trampa.draw(self.pantalla_principal)
 
+    def actualizar_trampas(self):
+        for trampa in self.grupo_trampas:
+            # Verificar si la trampa ha llegado al fondo de la pantalla
+            if trampa.rect.top >= ALTO:
+                trampa.kill()
+
     def crear_vidas(self):
         for vida in self.grupo_vidas:
             vida.kill()
@@ -178,6 +179,7 @@ class Nivel:
         self.crear_trampas()
         self.mostrar_trampas()
         self.grupo_trampas.update()
+        self.actualizar_trampas()
         self.crear_vidas()
         self.mostrar_vidas()
         self.grupo_sprites.draw(self.pantalla)
@@ -185,27 +187,21 @@ class Nivel:
     def inicializar_nivel(self):
         self.cargar_recursos()
 
-        #Cargo plataformas
         self.crear_plataformas()
         self.mostrar_plataformas()
 
-        #Cargo enemigos
         self.crear_enemigos()
         self.mostrar_enemigos()
 
-        #Cargar objetivos
         self.crear_objetivos()
         self.mostrar_objetivos()
 
-        #Cargar energias
         self.crear_energias()
         self.mostrar_energias()
 
-        #Cargar trampas
         self.crear_trampas()
         self.mostrar_trampas()
 
-        #Cargar Vidas
         self.crear_vidas()
         self.mostrar_vidas()
 
