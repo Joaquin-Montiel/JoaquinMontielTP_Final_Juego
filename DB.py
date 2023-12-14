@@ -38,14 +38,14 @@ def chequear_existencias(value:str):
     Recibe: nombre del jugador.
     Retorna: Una lista con las filas encontradas.
     """
-    with sqlite3.connect("ranking.db") as conexion:
+    with sqlite3.connect("Ranking_Dino.db") as conexion:
         sentencia = "SELECT * FROM ranking WHERE nombre=?"
         cursor = conexion.execute(sentencia, (value,))
         filas=cursor.fetchall()
         return filas
 
 def get_lista():
-    with sqlite3.connect("ranking.db") as conexion:
+    with sqlite3.connect("Ranking_Dino.db") as conexion:
         sentencia = "SELECT * FROM ranking ORDER BY puntaje DESC LIMIT 3"
         cursor = conexion.execute(sentencia)
         filas=cursor.fetchall()

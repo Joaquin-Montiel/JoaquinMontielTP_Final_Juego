@@ -21,12 +21,12 @@ class Asteroide(pygame.sprite.Sprite):
     def draw(self, pantalla):
         pantalla.blit(self.image, self.rect)
 
-def generar_trampas(g_sprites, g_trampas, pantalla: pygame.Surface, cantidad: int=8):
-    if len(g_trampas) == 0:
-        for i in range(cantidad):
-            x = random.randint(40, pantalla.get_width() - 40)
-            y = random.randint(40, pantalla.get_height() // 2)
-            trampa = Asteroide(RUTA_TRAMPA, (x, y), VELOCIDAD_ASTEROIDE)
-            g_sprites.add(trampa)
-            g_trampas.add(trampa)
+# def generar_trampas(g_sprites, g_trampas, pantalla: pygame.Surface, cantidad: int=8):
+#     if len(g_trampas) == 0:
+#         for i in range(cantidad):
+#             x = random.randint(40, pantalla.get_width() - 40)
+#             y = random.randint(40, pantalla.get_height() // 2)
+#             trampa = Asteroide(RUTA_TRAMPA, (x, y), VELOCIDAD_ASTEROIDE)
+#             g_sprites.add(trampa)
+#             g_trampas.add(trampa)
 

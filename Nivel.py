@@ -137,8 +137,7 @@ class Nivel:
                 trampa = Asteroide(imagen, (x, y), VELOCIDAD_ASTEROIDE)
                 self.grupo_trampas.add(trampa)
         self.grupo_sprites.add(self.grupo_trampas)
-        
-
+    
     def mostrar_trampas(self):
         for trampa in self.grupo_trampas:
             trampa.draw(self.pantalla_principal)

@@ -8,9 +8,9 @@ path_juego = r'C:\Users\joaqu\OneDrive\Desktop\Joaquin Montiel-TP Juego'
 sys.path.append(path_juego)
 from Juego2 import Juego
 
-# path_db = r'C:\Users\joaqu\OneDrive\Desktop\Joaquin Montiel-TP Juego\DB.py'
-# sys.path.append(path_db)
-# from DB import obtener_puntuaciones
+path_db = r'C:\Users\joaqu\OneDrive\Desktop\Joaquin Montiel-TP Juego\DB.py'
+sys.path.append(path_db)
+from DB import get_lista
 
 
 
@@ -101,16 +101,17 @@ def mostrar_tabla_posiciones():
         fondo_tabla = pg.transform.scale(pg.image.load(r"./sprites_juego/Fondo/tabla_posiciones.png"), (600, 500))  
         pantalla.blit(fondo_tabla, (x_pos, y_pos))
 
-        # Obtener las puntuaciones desde la base de datos
-        # puntuaciones = obtener_puntuaciones()
+        #Obtengo las puntuaciones desde la base de datos
+        puntuaciones = get_lista()
 
         # Mostrar las puntuaciones
-        # y_pos_puntuaciones = y_pos + 100
-        # for i, (nombre, puntuacion) in enumerate(puntuaciones, start=1):
-        #     fila_texto = get_font(30).render(f"{i}. {nombre}: {puntuacion}", True, "Black")
-        #     fila_rect = fila_texto.get_rect(center=(x_pos + tabla_resolucion[0] // 2, y_pos_puntuaciones))
-        #     pantalla.blit(fila_texto, fila_rect)
-        #     y_pos_puntuaciones += 50
+        y_pos_puntuaciones = y_pos + 100
+        for i, (nombre, puntaje) in enumerate(puntuaciones, start=1):
+            fila_texto = get_font(30).render(f"{i}. {nombre}: {puntaje}", True, "Black")
+            fila_rect = fila_texto.get_rect(center=(x_pos + tabla_resolucion[0] // 2, y_pos_puntuaciones))
+            pantalla.blit(fila_texto, fila_rect)
+            y_pos_puntuaciones += 50
+
 
         TEXTO_TABLA = get_font(60).render("Puntaje", True, "Black")
         TABLA_RECT = TEXTO_TABLA.get_rect(center=(400, 90))

@@ -4,7 +4,7 @@ from Puntaje import Puntaje
 from Vida import Vida
 from Nivel import Nivel
 from config import *
-# from DB import crear_tabla_puntuaciones
+from DB import insertar_campos, crear_tabla
 
 
 class Juego(pg.sprite.Sprite):
@@ -30,7 +30,7 @@ class Juego(pg.sprite.Sprite):
         self.puntaje = Puntaje()
         self.nivel.jugador.objetivos_recolectados = 0
         #Creo la tabla de puntuacione
-        # crear_tabla_puntuaciones()
+        crear_tabla()
 
     def ejecutar_juego(self):
         # main_menu()
@@ -68,6 +68,7 @@ class Juego(pg.sprite.Sprite):
             # Verifico si se alcanzó la duración del juego
             if tiempo_transcurrido >= self.duracion_juego:
                 self.en_ejecucion = False
+                insertar_campos(self.nivel.jugador.nombre, self.puntaje.obtener_puntaje())
                 self.game_over()
                 pg.display.flip()
                 tiempo_espera = 2000  # en milisegundos
@@ -86,6 +87,7 @@ class Juego(pg.sprite.Sprite):
                     
             if self.nivel.jugador.vidas < 1:
                 self.en_ejecucion = False
+                insertar_campos(self.nivel.jugador.nombre, self.puntaje.obtener_puntaje())
                 self.game_over()
                 pg.display.flip()
                 tiempo_espera = 2000  # en milisegundos
